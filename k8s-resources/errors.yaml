@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: errortest
+spec:
+  containers:
+    - name: nginx
+      image: 9skdfnsdf
