@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pod-Config
+  name: pod-config
 data:
   course: "Devops"
   durations: "120 hrs"
