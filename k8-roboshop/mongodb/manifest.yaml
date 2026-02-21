@@ -27,3 +27,14 @@ spec:
       containers: 
       - name: mongodb
         image: testdockerhub28/mongodb:v1
+        readinessProbe: 
+          tcpsocket:
+            port: 27017
+          intialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          tcpsocket:
+            port: 27017
+            intialDelaySeconds: 5
+            periodSeconds: 5
+       
