@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mongodb
+  # these labels are for replica set
+  labels:
+    project: roboshop
+    component: mongodb
+    tier: db
+spec:
+  replicas: 1
+  selector: 
+  # these labels are used to select pods
+    matchLabels: 
+      project: roboshop
+      component: mongodb
+      tier: db
+    # pod definition
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: mongodb
+        tier: db 
+    spec: 
+      containers: 
+      - name: mongodb
+        image: testdockerhub28/mongodb:v1
