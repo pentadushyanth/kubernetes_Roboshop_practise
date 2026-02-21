@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ReplicaSet
 metadata: 
-  name: nginx
+  name: nginxreplicas
   # these labels are for replica set
   labels:
     project: roboshop
