@@ -35,6 +35,6 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 27017
-            intialDelaySeconds: 5
-            periodSeconds: 5
+          intialDelaySeconds: 5
+          periodSeconds: 5
        
