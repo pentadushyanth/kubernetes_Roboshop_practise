@@ -10,3 +10,4 @@ spec:
   containers: 
   - name: debug
     image: testdockerhub28/debug:v1
+    imagePullPolicy: Always
