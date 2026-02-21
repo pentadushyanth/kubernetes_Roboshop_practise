@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata: 
   name: service-demo
-  label:
+  labels:
     project: roboshop
     component: frontend
     environmanet: dev
