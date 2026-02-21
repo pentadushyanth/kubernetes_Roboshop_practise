@@ -8,7 +8,7 @@ metadata:
     purpose: replicas
 spec:
   replicas: 3
-  selectors: 
+  selector: 
   # these labels are used to select pods
     matchlabels: 
       project: roboshop
