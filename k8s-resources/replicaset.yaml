@@ -10,7 +10,7 @@ spec:
   replicas: 3
   selector: 
   # these labels are used to select pods
-    matchlabels: 
+    matchlabel: 
       project: roboshop
       purpose: replicas
     # pod definition
