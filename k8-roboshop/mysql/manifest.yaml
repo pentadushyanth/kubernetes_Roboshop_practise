@@ -54,7 +54,7 @@ spec:
           subPath: my.cnf
       volumes:
         - name: mysql-config
-          configMapRef: 
+          configMap: 
             name: mysql
 ---
 apiVersion: v1
