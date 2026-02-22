@@ -6,8 +6,8 @@ metadata:
 data:
   REDIS: "true"
   REDIS_HOST: "redis"
-  CART_HOST: "cart"
-  CART_PORT: "8080"
+  CATALOGUE_HOST: "catalogue"
+  CATALOGUE_PORT: "8080"
 ---
 apiVersion: apps/v1
 kind: Deployment
