@@ -4,7 +4,7 @@ metadata:
   name: mysql
   namespace: roboshop
 data:
-  my.cnf: 
+  my.cnf: |
     [mysqld]
     innodb_redo_log_capacity = 2G
 ---
@@ -52,10 +52,10 @@ spec:
         - name: mysql-config
           mountPath: /etc/mysql/conf.d/my.cnf
           subPath: my.cnf
-    volumes:
-      - name: mysql-config
-        configMapRef: 
-          name: mysql
+      volumes:
+        - name: mysql-config
+          configMapRef: 
+            name: mysql
 ---
 apiVersion: v1
 kind: Service
