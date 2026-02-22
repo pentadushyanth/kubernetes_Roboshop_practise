@@ -1,0 +1,71 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: frontend
+#   namespace: roboshop
+# data:
+#   REDIS: "true"
+#   REDIS_URL: "redis://redis:6379"
+#   MONGO_URL: "mongodb://mongodb:27017/frontends"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: frontend
+  namespace: roboshop
+  # these labels are for replica set
+  labels:
+    project: roboshop
+    component: frontend
+    tier: frontend
+spec:
+  replicas: 1
+  selector: 
+  # these labels are used to select pods
+    matchLabels: 
+      project: roboshop
+      component: frontend
+      tier: frontend
+    # pod definition
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: frontend
+        tier: frontend 
+    spec: 
+      containers: 
+      - name: frontend
+        image: testdockerhub28/frontend:v1
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef: 
+            name: frontend
+        readinessProbe: 
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 1 
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 1
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: frontend
+  namespace: roboshop
+spec: 
+  type: LoadBalancer
+  selector:
+     project: roboshop
+     component: frontend
+     tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80 #service port
+      targetPort: 80 #container port     
