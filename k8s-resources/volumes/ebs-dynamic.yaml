@@ -29,7 +29,7 @@ spec:
   volumes:
   - name: nginx-html
     persistentVolumeClaim:
-      claimName: ebs-dynamic
+      claimName: ebs-claim
 
 ---
 apiVersion: v1
