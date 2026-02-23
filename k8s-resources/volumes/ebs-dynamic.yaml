@@ -24,9 +24,24 @@ spec:
     volumeMounts:
     - name: nginx-html
       mountPath: /usr/share/nginx/html
-  nodeSelector:
-    topology.kubernetes.io/zone: us-east-1f   # to determine the node in which we need to mount volume
+  # nodeSelector:
+  #   topology.kubernetes.io/zone: us-east-1f   # to determine the node in which we need to mount volume
   volumes:
   - name: nginx-html
     persistentVolumeClaim:
       claimName: ebs-dynamic
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: nginx-lb
+spec: 
+  type: LoadBalancer
+  selector:
+    purpose: ebs-dynamic
+  ports: 
+    - protocol: TCP
+      port: 80 #service port
+      targetPort: 80 #container port
+      nodePort: 30007
