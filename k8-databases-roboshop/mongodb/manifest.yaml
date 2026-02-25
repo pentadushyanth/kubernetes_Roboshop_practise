@@ -47,9 +47,10 @@ spec:
   replicas: 2 # by default is 1
   template:
     metadata:
-      project: roboshop
-      component: mongodb
-      tier: db  # has to match .spec.template.metadata.labels
+      labels:
+        project: roboshop
+        component: mongodb
+        tier: db  # has to match .spec.template.metadata.labels
     spec:
       containers:
       - name: mongodb
