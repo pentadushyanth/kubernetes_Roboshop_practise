@@ -4,15 +4,15 @@ metadata:
   name: nginxreplicas
   # these labels are for replica set
   labels:
-    project: svc-demo
-    purpose: replicas
+    project: headless-svc-demo
+    purpose: replicas 
 spec:
   replicas: 3
   selector: 
   # these labels are used to select pods
     matchLabels: 
-      project: svc-demo
-      purpose: replicas
+      project: headless-svc-demo
+      purpose: replicas 
     # pod definition
   template:
     metadata:
