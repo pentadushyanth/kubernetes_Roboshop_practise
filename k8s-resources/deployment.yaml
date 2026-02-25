@@ -30,7 +30,7 @@ metadata:
   name: nginx-headless
 spec: 
 # If a service has cluster IP then it is called headless service
-  clusterIP: ""
+  clusterIP: None
   selector:
     project: headless-svc-demo
     purpose: replicas 
