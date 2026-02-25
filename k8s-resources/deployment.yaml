@@ -27,8 +27,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: nginx
+  name: nginx-headless
 spec: 
+# If a service has cluster IP then it is called headless service
+  clusterIp: None
   selector:
     project: headless-svc-demo
     purpose: replicas 
