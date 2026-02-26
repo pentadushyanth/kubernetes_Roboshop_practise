@@ -1,0 +1,75 @@
+#service,headless service,stateful set,pvc
+apiVersion: v1
+kind: Service
+metadata: 
+  name: rabbitmq
+  namespace: roboshop
+spec: 
+  selector:
+     project: roboshop
+     component: rabbitmq
+     tier: db 
+  ports:
+    - protocol: TCP
+      port: 5672 #service port
+      targetPort: 5672 #container port     
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-headless
+  namespace: roboshop
+spec:
+  clusterIP: None
+  selector:
+    project: roboshop
+    component: rabbitmq
+    tier: db 
+  ports:
+    - protocol: TCP
+      port: 5672 #service port
+      targetPort: 5672 #container port     
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  namespace: roboshop
+spec:
+  selector:
+    matchLabels:
+      project: roboshop
+      component: rabbitmq
+      tier: db  # has to match .spec.template.metadata.labels
+  serviceName: "rabbitmq-headless"
+  replicas: 2 # by default is 1
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: rabbitmq
+        tier: db  # has to match .spec.template.metadata.labels
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: roboshop
+        - name: RABBITMQ_DEFAULT_PASS
+          value: roboshop123
+        volumeMounts:
+        - name: rabbitmq
+          mountPath: /var/lib/rabbitmq
+#PVC
+  volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 1Gi
