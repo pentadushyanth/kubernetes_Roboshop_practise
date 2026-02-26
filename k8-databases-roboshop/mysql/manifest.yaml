@@ -1,0 +1,88 @@
+#service,headless service,stateful set,pvc
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  namespace: roboshop
+data:
+  my.cnf: |
+    [mysqld]
+    innodb_redo_log_capacity = 2G
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mysql
+  namespace: roboshop
+spec: 
+  selector:
+     project: roboshop
+     component: mysql
+     tier: db 
+  ports:
+    - protocol: TCP
+      port: 3306 #service port
+      targetPort: 3306 #container port     
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+  namespace: roboshop
+spec:
+  clusterIP: None
+  selector:
+    project: roboshop
+    component: mysql
+    tier: db 
+  ports:
+    - protocol: TCP
+      port: 3306 #service port
+      targetPort: 3306 #container port     
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: roboshop
+spec:
+  selector:
+    matchLabels:
+      project: roboshop
+      component: mysql
+      tier: db  # has to match .spec.template.metadata.labels
+  serviceName: "mysql-headless"
+  replicas: 2 # by default is 1
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: mysql
+        tier: db  # has to match .spec.template.metadata.labels
+    spec:
+      containers:
+      - name: mysql
+        image: testdockerhub28/mysql:v1
+        volumeMounts:
+        - name: mysql
+          mountPath: /data/db
+        - name: mysql-config
+          mountPath: /etc/mysql/conf.d/my.cnf
+          subPath: my.cnf
+      volumes:
+        - name: mysql-config
+          configMap: 
+            name: mysql
+
+#PVC
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 1Gi
