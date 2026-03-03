@@ -45,22 +45,22 @@ spec:
           containerPort: 8080
         resources:
           requests:
-            cpu: "100m"
+            cpu: "300m"
             memory: "128Mi"
           limits:
-            cpu: "100m"
+            cpu: "300m"
             memory: "128Mi"
         readinessProbe: 
           httpGet:
             path: /health
             port: 8080
-          failureThreshold: 1 
+          failureThreshold: 3 
           periodSeconds: 15
         livenessProbe:
           httpGet:
             path: /health
             port: 8080
-          failureThreshold: 1
+          failureThreshold: 3
           periodSeconds: 15
 ---
 apiVersion: v1
