@@ -125,7 +125,7 @@ spec:
           initialDelaySeconds: 20
           failureThreshold: 3
           periodSeconds: 15
-      volumeMounts:
+        volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.cnf
