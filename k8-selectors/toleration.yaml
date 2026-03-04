@@ -7,6 +7,8 @@ metadata:
     project: toleration-demo
     purpose: replicas 
 spec:
+  nodeselector: 
+    kubernetes.io/hostname: ip-192-168-45-5.ec2.internal
   replicas: 3
   selector: 
   # these labels are used to select pods
@@ -15,7 +17,7 @@ spec:
       purpose: replicas 
     # pod definition
   template:
-    metadata:
+    metadata: 
       labels:
         project: toleration-demo
         purpose: replicas 
