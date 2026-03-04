@@ -7,7 +7,7 @@ metadata:
     project: toleration-demo
     purpose: replicas 
 spec:
-  nodeselector: 
+  nodeSelector: 
     kubernetes.io/hostname: ip-192-168-45-5.ec2.internal
   replicas: 3
   selector: 
