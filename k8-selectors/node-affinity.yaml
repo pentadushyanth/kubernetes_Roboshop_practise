@@ -12,7 +12,6 @@ spec:
             operator: In
             values:
             - us-east-1d 
-        - matchExpressions:
           - key: disktype
             operator: In
             values:
