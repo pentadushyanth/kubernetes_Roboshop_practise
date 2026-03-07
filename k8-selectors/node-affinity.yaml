@@ -5,17 +5,34 @@ metadata:
 spec:   
   affinity:
     nodeAffinity:
-     requiredDuringSchedulingIgnoredDuringExecution:
+     #hard rule
+      requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
           - key: topology.kubernetes.io/zone
             operator: In
             values:
             - us-east-1d
-          - key: disktype
+          # - key: disktype
+          #   operator: In
+          #   values:
+          #   - ssd 
+      #soft rule
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+          - key: project
             operator: In
             values:
-            - ssd    
+            - roboshop 
+      - weight: 10
+        preference:
+          matchExpressions:
+          - key: project
+            operator: In
+            values:
+            - amzon 
   containers:
   - name: nginx
     image: nginx
