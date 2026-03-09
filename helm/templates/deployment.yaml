@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx
+  # these labels are for replica set
+  labels:
+    project: helm-demo
+    purpose: replicas 
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector: 
+  # these labels are used to select pods
+    matchLabels: 
+      project: helm-demo
+      purpose: replicas 
+    # pod definition
+  template:
+    metadata:
+      labels:
+        project: helm-demo
+        purpose: replicas 
+    spec: 
+      containers: 
+      - name: nginx
+        image: nginx:{{ .Values.deployment.imageVersion }}
