@@ -4,7 +4,7 @@ metadata:
   name: pod-2
 spec:   
   affinity:
-    podAntiAffinityTerm:
+    podAffinityTerm:
       requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
