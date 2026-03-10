@@ -26,7 +26,7 @@ spec:
     spec: 
       containers: 
       - name: mongodb
-        image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion }}"
+        image: "{{ .values.deployment.imageRepo }}:{{ .values.deployment.imageVersion }}"
         imagePullPolicy: Always
         readinessProbe: 
           tcpSocket:
