@@ -13,8 +13,8 @@ kind: ClusterRole
 metadata:
   name: roboshop-admin
 rules:
-- apiGroups: ["storage.k8s.io/v1"] # "" indicates the core API group
-  resources: ["StorageClass"]
+- apiGroups: ["storage.k8s.io"] # "" indicates the core API group
+  resources: ["storageclasses"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""] 
   resources: ["persistentvolumes"]
